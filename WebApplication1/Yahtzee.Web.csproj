@@ -132,7 +132,7 @@
     <Content Include="App_Data\players_log.ldf">
       <DependentUpon>players.mdf</DependentUpon>
     </Content>
-    <Content Include="Contact.aspx" />
+    <Content Include="Yahtzee.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
@@ -193,12 +193,12 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Contact.aspx.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
+    <Compile Include="Yahtzee.aspx.cs">
+      <DependentUpon>Yahtzee.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Contact.aspx.designer.cs">
-      <DependentUpon>Contact.aspx</DependentUpon>
+    <Compile Include="Yahtzee.aspx.designer.cs">
+      <DependentUpon>Yahtzee.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
