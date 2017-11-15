@@ -66,7 +66,7 @@ namespace Yahtzee
         private void Roll()
         {
             //first turn. Roll all 5 dice.
-            if(rollsRemaining == 3)
+            if (rollsRemaining == 3)
             {
                 for (int i = 0; i < 5; i++)
                 {
@@ -80,7 +80,7 @@ namespace Yahtzee
             else if (rollsRemaining > 0)
             {
                 //Push the index value of the checked die into the selected die stack
-                if(chkHold1.Checked == true)
+                if (chkHold1.Checked == true)
                 {
                     selectedDie.Push(0);
                 }
@@ -115,6 +115,11 @@ namespace Yahtzee
             renderDice();
 
             ViewState["rollsRemaining"] = rollsRemaining;
+
+            if (rollsRemaining == 0)
+            {
+                btnRoll.Enabled = false;
+            }
         }
 
        private void renderDice()
