@@ -6,12 +6,14 @@
         <h1>Yahtzee - Online Game</h1>
         <p class="lead">&nbsp;</p>
         <p>
-			<asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Login.aspx">Login</asp:HyperLink>
+			<asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="Login.aspx">Login</asp:HyperLink>
 &nbsp;|
-			<asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="~/Registeration.aspx">Register</asp:HyperLink>
+			<asp:HyperLink ID="HyperLink2" runat="server" NavigateUrl="Registeration.aspx">Register</asp:HyperLink>
 		&nbsp;|
-            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="~/logout.aspx">Logout</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink3" runat="server" NavigateUrl="logout.aspx">Logout</asp:HyperLink>
 		</p>
+        <p>
+			&nbsp;</p>
     </div>
 
     <div class="row">

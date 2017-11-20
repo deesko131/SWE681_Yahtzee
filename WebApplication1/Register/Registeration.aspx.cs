@@ -77,7 +77,7 @@ namespace WebApplication1
                     sqlCmd.Parameters.AddWithValue("@salt", Salt);
                     sqlCmd.ExecuteNonQuery();
                     Response.Write("Registeration is successful");
-                    Response.Redirect("Default.aspx");
+                    Response.Redirect("Register/Default.aspx");
                     sqlCon.Close();
                     Clear();
                 }

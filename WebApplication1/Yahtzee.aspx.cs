@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Security;
 
 namespace Yahtzee
 {
@@ -27,6 +28,10 @@ namespace Yahtzee
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //string name=Context.User.Identity.Name;
+            //ViewData.Add("UserName", name);
+            string name = Context.User.Identity.Name;
+            Welcome.Text = "Hello "+ name; 
             //if (!User.Identity.IsAuthenticated)
             //{
             //    Response.Redirect("Login.aspx");
@@ -37,7 +42,7 @@ namespace Yahtzee
             //{
             //    btnRoll.Enabled = true;
             //}
-            if(ViewState["rollsRemaining"] != null)
+            if (ViewState["rollsRemaining"] != null)
             {
                 rollsRemaining = Convert.ToInt16(ViewState["rollsRemaining"]);
             }
@@ -134,6 +139,16 @@ namespace Yahtzee
         protected void btnRoll_Click(object sender, EventArgs e)
         {
             Roll();
+        }
+
+        protected void Logout_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Register/logout.aspx");
+        }
+
+        protected void Welcome_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

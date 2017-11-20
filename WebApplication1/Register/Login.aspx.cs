@@ -7,13 +7,19 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Security.Cryptography;
+using System.Web.Security;
+using System.IO;
+using log4net;
 
 namespace WebApplication1
 {
     public partial class Login : System.Web.UI.Page
+
     {
+        private static readonly ILog log = LogManager.GetLogger("test");
         protected void Page_Load(object sender, EventArgs e)
         {
+            log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
 
         }
 
@@ -36,10 +42,10 @@ namespace WebApplication1
             {
                 try
                 {
-                    
+
                     conn.Open();
 
-                    
+
                     string checkpass = "select Password, Salt from Registeration where PlayerName=@PlayerName";
                     SqlCommand command = new SqlCommand(checkpass, conn);
                     command.Prepare();
@@ -48,11 +54,11 @@ namespace WebApplication1
                     //string Salt = command.ExecuteScalar().ToString();
                     //command.Parameters.Add(new SqlParameter("@Password", ComputeHash(Salt,TextBoxPassword.Text)));
                     //command.ExecuteNonQuery();
-                     
+
                     SqlDataReader dr = command.ExecuteReader();
                     dr.Read();
                     string Password = dr.GetString(0);
-             
+
                     string Salt = dr.GetString(1);
 
                     // command.Parameters.Add(new SqlParameter("@Passwd1", ComputeHash(Salt,TextBoxPassword.Text)));
@@ -64,25 +70,46 @@ namespace WebApplication1
 
                     string Hashedpass = ComputeHash(Salt, TextBoxPassword.Text);
                     conn.Close();
-                    
-                    if (Hashedpass == Password)
-                        Response.Redirect("game.aspx");
 
-                    else Response.Write("Login Failed:");
+                    if (Hashedpass == Password)
+
+                    {  //Response.Redirect("Yahtzee.aspx");
+                        //Session["PName"] = PlayerName;
+                        string status = "Logged in";
+                        log.InfoFormat("{0} - {1}", PlayerName, status);
+                        FormsAuthentication.RedirectFromLoginPage(PlayerName, chkPersistentCookie.Checked);
+
+                        
+
+                        //Response.Redirect("~/Yahtzee.aspx");
+                    }
+                    else
+                    {
+                        Response.Write("Login Failed");
+                        
+                        string status = "Failed Login";
+                        log.InfoFormat("{0} - {1}", PlayerName,status);
+
+                    }
 
                 }
 
                 catch (Exception ex)
 
                 {
-                    Response.Write("Login Failed:" + ex.ToString());
+                    /*string status = "Failed Login";
+                    log.Info(Context.User.Identity.Name);
+                    log.InfoFormat("{0}", status);
+                    */
+                    Response.Write("Login Failed" + ex.ToString());
+
 
                 }
 
             }
-          else
-                Response.Write("Login Failed:");
            
+                
+            
 
         }
 
@@ -113,5 +140,10 @@ namespace WebApplication1
     {
 
     }
-}   
+
+        protected void chkPersistentCookie_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+    }   
 }

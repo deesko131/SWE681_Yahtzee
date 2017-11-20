@@ -2,7 +2,20 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div align="center">
-    <h2><%: Title %>Yahtzee with Pals</h2>
+    <table class="nav-justified">
+        <tr>
+            <td class="text-left" style="width: 426px">
+                <asp:Label ID="Welcome" runat="server" style="font-family: Arial; font-weight: normal; font-size: medium" Text="Welcome"></asp:Label>
+            </td>
+            <td class="text-right">
+                <asp:HyperLink ID="Logout" runat="server" NavigateUrl="~/Register/logout.aspx" style="font-family: Arial; font-weight: normal; font-size: medium">Logout</asp:HyperLink>
+            </td>
+        </tr>
+    </table>
+    <h2 class="text-left">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </h2>
+        <h2>Yahtzee with Pals</h2>
         <p>Score: </p>
     <h3>You Rolled:</h3>
 
