@@ -14,10 +14,11 @@ namespace Yahtzee
 
         //These arrays hold the scores of the two players. 
         //{ones, twos, threes, fours, fives, sixes, 3 of a kind, 4 of a kind, full house, sm. straight, lg. straight, yahtzee, chance, bonus}
-        //private int[,] Points = new int[2,14];
-        private int[] PlayerOneScores = new int[14];
-        private int[] PlayerTwoScores = new int[14];
-        private int selectedPointSpace;
+        private int[,] Points = new int[2,14];
+        //private int[] PlayerOneScores = new int[14];
+        //private int[] PlayerTwoScores = new int[14];
+        private int selectedPointScore = 0;
+        private int selectedPointCategory = 0;
         private int rollsRemaining = 3; //The number of rolls left in the user's turn
         private int playerIndex; //the index of the player whose turn it is
         Stack<int> selectedDie = new Stack<int>();
@@ -119,6 +120,7 @@ namespace Yahtzee
             if (rollsRemaining == 0)
             {
                 btnRoll.Enabled = false;
+                btnRoll.Visible = false;
             }
         }
 
@@ -131,9 +133,65 @@ namespace Yahtzee
             lblDie5.Text = dice[4].ToString();
         }
 
-        protected void btnRoll_Click(object sender, EventArgs e)
+        protected void BtnRoll_Click(object sender, EventArgs e)
         {
             Roll();
+        }
+
+        //Checks if the set of 5 dice satisfies the requirements to be played in the category
+        private bool isCategoryValid(int[] dice)
+        {
+            bool isValid = false;
+
+            if(rdoOnes.Checked || rdoTwos.Checked)
+            {
+                isValid = true;
+            }
+            return isValid;
+        }
+
+        //For valid selected categories, this sets the text of the score label control for the category
+        private void displayCategoryScore(int[] dice, int category)
+        {
+            int score = 0;
+
+            switch (category)
+            {
+                case 0: //ones
+                    for(int i=0; i<5; i++)
+                    {
+                        if(dice[i] == 1)
+                            score += dice[i];
+                    }
+                    lblOnesScore.Text = score.ToString();
+                    break;
+                
+            }
+            selectedPointScore = score;
+        }
+
+        private void calculateTotalScore(int[] playerScores)
+        {
+
+        }
+
+        protected void rdoOnes_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdoOnes.Checked && isCategoryValid(dice))
+            {
+                displayCategoryScore(dice, 0);
+                selectedPointCategory = 0;
+            }
+            else if (!rdoOnes.Checked)
+            {
+                lblOnesScore.Text = "0";
+            }
+        }
+
+        protected void btnPlay_Click(object sender, EventArgs e)
+        {
+            Points[playerIndex, selectedPointCategory] = selectedPointScore;
+            Cache("Points")
         }
     }
 }

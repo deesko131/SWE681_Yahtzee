@@ -1,9 +1,9 @@
-﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Yahtzee.aspx.cs" Inherits="Yahtzee.YahtzeeGame" %>
+﻿<%@ Page Title="Yahtzee with Pals" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Yahtzee.aspx.cs" Inherits="Yahtzee.YahtzeeGame" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div align="center">
-    <h2><%: Title %>Yahtzee with Pals</h2>
-        <p>Score: </p>
+    <h2><%: Title %></h2>
+        <h3>Your Score: <asp:Label ID="lblPlayerOneScore" runat="server" Text="X" ></asp:Label> &nbsp;&nbsp;&nbsp;&nbsp;Their Score: <asp:Label ID="lblPlayerTwoScore" runat="server" Text="X" ></asp:Label></h3>
     <h3>You Rolled:</h3>
 
         <table id="tblDiceSet" border="1" class="nav-justified" style="text-align:center; width:auto">
@@ -43,7 +43,7 @@
         </table>
         </div>
     <p style="text-align:center; vertical-align:bottom">
-                    <asp:Button ID="btnRoll" runat="server" Text="Roll" Enabled="False" OnClick="btnRoll_Click" />
+                    <asp:Button ID="btnRoll" runat="server" Text="Roll" Enabled="False" OnClick="BtnRoll_Click" />
                 </p>
     <div align="center">
     <table class="nav-justified" border="1" style="width:auto">
@@ -53,7 +53,7 @@
                     <asp:Label ID="lblOnesScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoOnes" runat="server" />
+                <asp:RadioButton ID="rdoOnes" runat="server" OnCheckedChanged="rdoOnes_CheckedChanged" AutoPostBack="True" GroupName="category" />
             </td>
         </tr>
         <tr>
@@ -62,7 +62,7 @@
                     <asp:Label ID="lblTwosScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoTwos" runat="server" />
+                <asp:RadioButton ID="rdoTwos" runat="server" GroupName="category" />
             </td>
         </tr>
         <tr>
@@ -71,7 +71,7 @@
                     <asp:Label ID="lblThreesScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoThrees" runat="server" />
+                <asp:RadioButton ID="rdoThrees" runat="server" GroupName="category" />
             </td>
         </tr>
         <tr>
@@ -80,7 +80,7 @@
                     <asp:Label ID="lblFoursScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoFours" runat="server" />
+                <asp:RadioButton ID="rdoFours" runat="server" GroupName="category" />
             </td>
         </tr>
         <tr>
@@ -89,7 +89,7 @@
                     <asp:Label ID="lblFivesScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoFives" runat="server" />
+                <asp:RadioButton ID="rdoFives" runat="server" GroupName="category" />
             </td>
         </tr>
         <tr>
@@ -98,7 +98,23 @@
                     <asp:Label ID="lblSixesScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoSixes" runat="server" />
+                <asp:RadioButton ID="rdoSixes" runat="server" GroupName="category" />
+            </td>
+        </tr>
+        <tr>
+            <td>Upper Total</td>
+            <td style="text-align:center">
+                    &nbsp;</td>
+            <td style="text-align:center">
+                    <asp:Label ID="lblUpperTotal" runat="server" Text="0" ></asp:Label>
+            </td>
+        </tr>
+        <tr>
+            <td>Bonus</td>
+            <td style="text-align:center">
+                    &nbsp;</td>
+            <td style="text-align:center">
+                    <asp:Label ID="lblBonus" runat="server" Text="0" ></asp:Label>
             </td>
         </tr>
         <tr>
@@ -107,7 +123,7 @@
                     <asp:Label ID="lblThreeOfAKindScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoThreeOfAKind" runat="server" />
+                <asp:RadioButton ID="rdoThreeOfAKind" runat="server" GroupName="category" />
             </td>
         </tr>
         <tr>
@@ -116,7 +132,7 @@
                     <asp:Label ID="lblFourOfAKindScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoFourOfAKind" runat="server" />
+                <asp:RadioButton ID="rdoFourOfAKind" runat="server" GroupName="category" />
             </td>
         </tr>
         <tr>
@@ -125,7 +141,7 @@
                     <asp:Label ID="lblFullHouseScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoFullHouse" runat="server" />
+                <asp:RadioButton ID="rdoFullHouse" runat="server" GroupName="category" />
             </td>
         </tr>
         <tr>
@@ -134,7 +150,7 @@
                     <asp:Label ID="lblSmallStraightScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoSmallStraight" runat="server" />
+                <asp:RadioButton ID="rdoSmallStraight" runat="server" GroupName="category" />
             </td>
         </tr>
         <tr>
@@ -143,7 +159,7 @@
                     <asp:Label ID="lblLargeStraightScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoLargeStraight" runat="server" />
+                <asp:RadioButton ID="rdoLargeStraight" runat="server" GroupName="category" />
             </td>
         </tr>
         <tr>
@@ -152,7 +168,7 @@
                     <asp:Label ID="lblYahtzeeScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoYahtzee" runat="server" />
+                <asp:RadioButton ID="rdoYahtzee" runat="server" GroupName="category" />
             </td>
         </tr>
         <tr>
@@ -161,9 +177,18 @@
                     <asp:Label ID="lblChanceScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoChance" runat="server" />
+                <asp:RadioButton ID="rdoChance" runat="server" GroupName="category" />
+            </td>
+        </tr>
+        <tr>
+            <td>Lower Total</td>
+            <td style="text-align:center">
+                    &nbsp;</td>
+            <td style="text-align:center">
+                    <asp:Label ID="lblLowerTotal" runat="server" Text="0" ></asp:Label>
             </td>
         </tr>
     </table>
+                    <asp:Button ID="btnPlay" runat="server" Text="Play and End Turn" Enabled="False" OnClick="btnPlay_Click" />
     </div>
 </asp:Content>

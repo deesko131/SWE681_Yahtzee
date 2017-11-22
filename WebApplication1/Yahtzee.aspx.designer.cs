@@ -13,6 +13,24 @@ namespace Yahtzee {
     public partial class YahtzeeGame {
         
         /// <summary>
+        /// lblPlayerOneScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPlayerOneScore;
+        
+        /// <summary>
+        /// lblPlayerTwoScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPlayerTwoScore;
+        
+        /// <summary>
         /// lblDie1 control.
         /// </summary>
         /// <remarks>
@@ -220,6 +238,24 @@ namespace Yahtzee {
         protected global::System.Web.UI.WebControls.RadioButton rdoSixes;
         
         /// <summary>
+        /// lblUpperTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblUpperTotal;
+        
+        /// <summary>
+        /// lblBonus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBonus;
+        
+        /// <summary>
         /// lblThreeOfAKindScore control.
         /// </summary>
         /// <remarks>
@@ -344,5 +380,23 @@ namespace Yahtzee {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton rdoChance;
+        
+        /// <summary>
+        /// lblLowerTotal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblLowerTotal;
+        
+        /// <summary>
+        /// btnPlay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnPlay;
     }
 }
