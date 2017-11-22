@@ -52,6 +52,12 @@
                     </td>
                     <td>&nbsp;</td>
                 </tr>
+                <!-- cookies-->
+                <tr>
+                <td>&nbsp;</td>
+                <td><asp:CheckBox ID="chkPersistentCookie" runat="server" AutoPostBack="false" OnCheckedChanged="chkPersistentCookie_CheckedChanged" Text="Remember Me" /></td>
+                <td></td>
+                </tr>
             </table>
             <br />
 			<asp:Button ID="ButtonLogin" runat="server" Text="Sign in" Height="34px" OnClick="ButtonLogin_Click" />
