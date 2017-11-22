@@ -29,14 +29,24 @@ namespace Yahtzee
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //string name=Context.User.Identity.Name;
-            //ViewData.Add("UserName", name);
-            string name = Context.User.Identity.Name;
-            Welcome.Text = "Hello "+ name; 
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //    Response.Redirect("Login.aspx");
-            //}
+
+            
+            if (!User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("Login.aspx");
+            }
+            else
+            {
+                Welcome.Text = "Hello " + User.Identity.Name;
+            }
+
+            if(Request.QueryString["game"] == "New")
+            {
+                PlayerNames[0] = User.Identity.Name;
+                lblPlayerOneName.Text = PlayerNames[0];
+            }
+
+
 
             ////If it is the logged in player's turn, make the roll button control enabled.
             //if (PlayerNames[playerIndex] == User.Identity.Name)
@@ -196,7 +206,7 @@ namespace Yahtzee
         protected void btnPlay_Click(object sender, EventArgs e)
         {
             Points[playerIndex, selectedPointCategory] = selectedPointScore;
-            Cache("Points")
+            //Cache("Points")
         }
 
         protected void Logout_Click(object sender, EventArgs e)

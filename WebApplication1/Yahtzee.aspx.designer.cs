@@ -13,24 +13,6 @@ namespace Yahtzee {
     public partial class YahtzeeGame {
         
         /// <summary>
-        /// lblPlayerOneScore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlayerOneScore;
-        
-        /// <summary>
-        /// lblPlayerTwoScore control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlayerTwoScore;
-        
-        /// <summary>
         /// Welcome control.
         /// </summary>
         /// <remarks>
@@ -47,6 +29,42 @@ namespace Yahtzee {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink Logout;
+        
+        /// <summary>
+        /// lblPlayerOneName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPlayerOneName;
+        
+        /// <summary>
+        /// lblPlayerOneScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPlayerOneScore;
+        
+        /// <summary>
+        /// lblPlayerTwoName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPlayerTwoName;
+        
+        /// <summary>
+        /// lblPlayerTwoScore control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPlayerTwoScore;
         
         /// <summary>
         /// lblDie1 control.
