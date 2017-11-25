@@ -78,7 +78,7 @@
                     <asp:Label ID="lblTwosScore" runat="server" Text="0"></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoTwos" runat="server" GroupName="category" AutoPostBack="True"  />
+                <asp:RadioButton ID="rdoTwos" runat="server" GroupName="category" AutoPostBack="True" OnCheckedChanged="rdoTwos_CheckedChanged"  />
             </td>
         </tr>
         <tr>
@@ -87,7 +87,7 @@
                     <asp:Label ID="lblThreesScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoThrees" runat="server" GroupName="category" AutoPostBack="True"  />
+                <asp:RadioButton ID="rdoThrees" runat="server" GroupName="category" AutoPostBack="True" OnCheckedChanged="rdoThrees_CheckedChanged"  />
             </td>
         </tr>
         <tr>
@@ -96,7 +96,7 @@
                     <asp:Label ID="lblFoursScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoFours" runat="server" GroupName="category" AutoPostBack="True"  />
+                <asp:RadioButton ID="rdoFours" runat="server" GroupName="category" AutoPostBack="True" OnCheckedChanged="rdoFours_CheckedChanged"  />
             </td>
         </tr>
         <tr>
@@ -105,7 +105,7 @@
                     <asp:Label ID="lblFivesScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoFives" runat="server" GroupName="category" AutoPostBack="True"  />
+                <asp:RadioButton ID="rdoFives" runat="server" GroupName="category" AutoPostBack="True" OnCheckedChanged="rdoFives_CheckedChanged"  />
             </td>
         </tr>
         <tr>
@@ -114,7 +114,7 @@
                     <asp:Label ID="lblSixesScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoSixes" runat="server" GroupName="category" AutoPostBack="True"  />
+                <asp:RadioButton ID="rdoSixes" runat="server" GroupName="category" AutoPostBack="True" OnCheckedChanged="rdoSixes_CheckedChanged"  />
             </td>
         </tr>
         <tr>
@@ -139,7 +139,7 @@
                     <asp:Label ID="lblThreeOfAKindScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoThreeOfAKind" runat="server" GroupName="category" AutoPostBack="True"  />
+                <asp:RadioButton ID="rdoThreeOfAKind" runat="server" GroupName="category" AutoPostBack="True" OnCheckedChanged="rdoThreeOfAKind_CheckedChanged"  />
             </td>
         </tr>
         <tr>
@@ -148,7 +148,7 @@
                     <asp:Label ID="lblFourOfAKindScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoFourOfAKind" runat="server" GroupName="category" AutoPostBack="True"  />
+                <asp:RadioButton ID="rdoFourOfAKind" runat="server" GroupName="category" AutoPostBack="True" OnCheckedChanged="rdoFourOfAKind_CheckedChanged1"  />
             </td>
         </tr>
         <tr>
@@ -157,7 +157,7 @@
                     <asp:Label ID="lblFullHouseScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoFullHouse" runat="server" GroupName="category" AutoPostBack="True"  />
+                <asp:RadioButton ID="rdoFullHouse" runat="server" GroupName="category" AutoPostBack="True" OnCheckedChanged="rdoFullHouse_CheckedChanged"  />
             </td>
         </tr>
         <tr>
@@ -166,7 +166,7 @@
                     <asp:Label ID="lblSmallStraightScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoSmallStraight" runat="server" GroupName="category" AutoPostBack="True"  />
+                <asp:RadioButton ID="rdoSmallStraight" runat="server" GroupName="category" AutoPostBack="True" OnCheckedChanged="rdoSmallStraight_CheckedChanged"  />
             </td>
         </tr>
         <tr>
@@ -175,7 +175,7 @@
                     <asp:Label ID="lblLargeStraightScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoLargeStraight" runat="server" GroupName="category" AutoPostBack="True"  />
+                <asp:RadioButton ID="rdoLargeStraight" runat="server" GroupName="category" AutoPostBack="True" OnCheckedChanged="rdoLargeStraight_CheckedChanged"  />
             </td>
         </tr>
         <tr>
@@ -184,7 +184,7 @@
                     <asp:Label ID="lblYahtzeeScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoYahtzee" runat="server" GroupName="category" AutoPostBack="True"  />
+                <asp:RadioButton ID="rdoYahtzee" runat="server" GroupName="category" AutoPostBack="True" OnCheckedChanged="rdoYahtzee_CheckedChanged"  />
             </td>
         </tr>
         <tr>
@@ -193,7 +193,7 @@
                     <asp:Label ID="lblChanceScore" runat="server" Text="0" ></asp:Label>
                 </td>
             <td style="text-align:center">
-                <asp:RadioButton ID="rdoChance" runat="server" GroupName="category" AutoPostBack="True"  />
+                <asp:RadioButton ID="rdoChance" runat="server" GroupName="category" AutoPostBack="True" OnCheckedChanged="rdoChance_CheckedChanged"  />
             </td>
         </tr>
         <tr>
