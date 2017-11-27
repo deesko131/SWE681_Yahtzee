@@ -11,9 +11,11 @@ namespace Yahtzee
     public partial class _Default : Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
-            
-			
+        {  //Added
+            if (!Request.IsSecureConnection)
+            {
+                Response.Redirect(Request.Url.AbsoluteUri.Replace("http://", "https://"));
+            }
         }
 
         protected void Button1_Click(object sender, EventArgs e)

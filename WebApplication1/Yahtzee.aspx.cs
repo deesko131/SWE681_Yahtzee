@@ -44,7 +44,10 @@ namespace Yahtzee
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            
+            if (!Request.IsSecureConnection)
+            {
+                Response.Redirect(Request.Url.AbsoluteUri.Replace("http://", "https://"));
+            }
             if (!User.Identity.IsAuthenticated)
             {
                 Response.Redirect("Login.aspx");
