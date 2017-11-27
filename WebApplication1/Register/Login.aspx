@@ -17,11 +17,22 @@
             width: 100%;
         }
         .auto-style4 {
-            width: 296px;
+            width: 318px;
             text-align: right;
         }
         .auto-style5 {
             text-align: left;
+            width: 222px;
+        }
+	    .auto-style6 {
+            text-align: left;
+        }
+        .auto-style7 {
+            width: 318px;
+        }
+        .auto-style8 {
+            text-align: right;
+            width: 222px;
         }
 	</style>
 </head>
@@ -38,9 +49,10 @@
 			        </td>
                     <td class="auto-style5">
 			<asp:TextBox ID="TextBoxPN" runat="server" OnTextChanged="TextBoxPN_TextChanged"></asp:TextBox>
+                    </td>
+                    <td class="auto-style6">
 			            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBoxPN" ErrorMessage="Please enter Player Name" ForeColor="#FF3300"></asp:RequiredFieldValidator>
                     </td>
-                    <td>&nbsp;</td>
                 </tr>
                 <tr>
                     <td class="auto-style4">
@@ -48,19 +60,26 @@
 			        </td>
                     <td class="auto-style5">
 			<asp:TextBox ID="TextBoxPassword" runat="server" TextMode="Password"></asp:TextBox>
+                    </td>
+                    <td class="auto-style6">
 			            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TextBoxPassword" ErrorMessage="Please enter Password" ForeColor="#FF3300"></asp:RequiredFieldValidator>
                     </td>
-                    <td>&nbsp;</td>
                 </tr>
                 <!-- cookies-->
                 <tr>
-                <td>&nbsp;</td>
-                <td><asp:CheckBox ID="chkPersistentCookie" runat="server" AutoPostBack="false" OnCheckedChanged="chkPersistentCookie_CheckedChanged" Text="Remember Me" /></td>
-                <td></td>
+                <td class="auto-style7">&nbsp;</td>
+                <td class="auto-style5"><asp:CheckBox ID="chkPersistentCookie" runat="server" AutoPostBack="false" OnCheckedChanged="chkPersistentCookie_CheckedChanged" Text="Remember Me" /></td>
+                <td class="auto-style6">&nbsp;</td>
+                </tr>
+                <tr>
+                <td class="auto-style7">&nbsp;</td>
+                <td class="auto-style8">
+			<asp:Button ID="ButtonLogin" runat="server" Text="Sign in" Height="34px" OnClick="ButtonLogin_Click" />
+			        </td>
+                <td class="auto-style6">&nbsp;</td>
                 </tr>
             </table>
             <br />
-			<asp:Button ID="ButtonLogin" runat="server" Text="Sign in" Height="34px" OnClick="ButtonLogin_Click" />
 			<br />
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<br />
