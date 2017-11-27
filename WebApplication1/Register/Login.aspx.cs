@@ -81,7 +81,7 @@ namespace WebApplication1
 
                         
 
-                        //Response.Redirect("~/Yahtzee.aspx");
+                        Response.Redirect("~/MainMenu.aspx");
                     }
                     else
                     {

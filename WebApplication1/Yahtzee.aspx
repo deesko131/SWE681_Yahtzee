@@ -12,10 +12,11 @@
             </td>
         </tr>
     </table>
-    <h2 class="text-left">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </h2>
+    
     <h2><%: Title %></h2>
+        <h2 class="text-left">
+           It is <asp:Label ID="lblPlayersTurn" runat="server" Text="Player "></asp:Label>'s turn.
+        </h2>
         <h3>
             <asp:Label ID="lblPlayerOneName" runat="server" Text="Player "></asp:Label>
             Score: <asp:Label ID="lblPlayerOneScore" runat="server" Text="0" ></asp:Label> &nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="lblPlayerTwoName" runat="server" Text="Player "></asp:Label>

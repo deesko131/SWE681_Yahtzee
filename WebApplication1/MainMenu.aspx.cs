@@ -22,6 +22,7 @@ namespace Yahtzee
                 lblUserName.Text = User.Identity.Name;
             }
 
+            //TODO: Get Active game ID and put into Session
         }
 
     }
