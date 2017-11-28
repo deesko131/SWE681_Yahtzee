@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace Yahtzee
 {
-    public partial class _MainMenu : Page
+    public partial class _JoinGame : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -23,6 +23,7 @@ namespace Yahtzee
             }
 
             //TODO: Get Active game ID and put into Session
+            //Alert the user when an active game is found in the database and redirect them to it instead of showing game list.
         }
 
     }
