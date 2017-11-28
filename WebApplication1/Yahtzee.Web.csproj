@@ -131,10 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <Content Include="App_Data\players.mdf" />
-    <Content Include="App_Data\players_log.ldf">
-      <DependentUpon>players.mdf</DependentUpon>
-    </Content>
     <Content Include="MainMenu.aspx" />
     <Content Include="Yahtzee.aspx" />
     <Content Include="Content\bootstrap.css" />

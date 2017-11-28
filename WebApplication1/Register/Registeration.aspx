@@ -31,22 +31,31 @@
 			height: 32px;
 		}
 		.auto-style7 {
-			height: 32px;
-			text-align: left;
-		}
+            height: 32px;
+            text-align: left;
+            width: 576px;
+        }
 		.auto-style8 {
-			text-align: left;
-		}
+            text-align: left;
+            width: 576px;
+        }
 		.auto-style9 {
 			width: 120px;
 			height: 32px;
 		}
 		.auto-style10 {
 			height: 32px;
-		}
+            width: 576px;
+        }
+	    .auto-style11 {
+            color: #FF0000;
+        }
+        .auto-style12 {
+            width: 576px;
+        }
 	</style>
 </head>
-<body style="height: 163px; width: 697px">
+<body style="height: 160px; width: 747px">
     <form id="form1" runat="server">
 		<table class="auto-style1">
 			<tr>
@@ -56,6 +65,10 @@
 				</td>
 				<td class="auto-style8">
 					<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBoxUN" ErrorMessage="Player Name is required" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+				    <br />
+                    <asp:Label ID="Label1" runat="server" CssClass="auto-style11" Text="Label" Visible="False"></asp:Label>
+				    <br />
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="TextBoxUN" CssClass="auto-style11" ErrorMessage="Name must conatin minimum 4 upper case/lower case letters" ValidationExpression="[a-zA-Z'.\s]{4,40}"></asp:RegularExpressionValidator>
 				</td>
 			</tr>
 			<tr>
@@ -76,6 +89,8 @@
 				</td>
 				<td class="auto-style8">
 					<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="TextBoxPass" ErrorMessage="Password is required" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+				    <br />
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="TextBoxPass" CssClass="auto-style11" ErrorMessage="Minimum 8 and maximum 12 characters at least: 1 uppercase alphabet, 1 lowercase alphabet, 1 number, and 1 special character." ValidationExpression="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*#?&amp;])[A-Za-z\d$@$!%*#?&amp;]{8,12}"></asp:RegularExpressionValidator>
 				</td>
 			</tr>
 			<tr>
@@ -94,8 +109,9 @@
 				<td class="auto-style3">
 					<asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Register" />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<input id="Reset1" type="reset" value="reset" /></td>
-				<td>&nbsp;</td>
+					<asp:Button ID="Reset" runat="server" OnClientClick="this.form.reset();return false" Text="Reset" CausesValidation="false"/>
+                </td>
+				<td class="auto-style12">&nbsp;</td>
 			</tr>
 			<tr>
 				<td class="auto-style9"></td>
@@ -105,7 +121,7 @@
 			<tr>
 				<td class="auto-style2">&nbsp;</td>
 				<td class="auto-style3">&nbsp;</td>
-				<td>&nbsp;</td>
+				<td class="auto-style12">&nbsp;</td>
 			</tr>
 		</table>
 	</form>
