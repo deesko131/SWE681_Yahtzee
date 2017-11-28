@@ -15,7 +15,7 @@
     
     <h2><%: Title %></h2>
         <h2 class="text-left">
-           It is <asp:Label ID="lblPlayersTurn" runat="server" Text="Player "></asp:Label>'s turn.
+           <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
         </h2>
         <h3>
             <asp:Label ID="lblPlayerOneName" runat="server" Text="Player "></asp:Label>

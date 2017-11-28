@@ -34,7 +34,6 @@ namespace Yahtzee
         private int selectedPointScore = 0;
         private int selectedPointCategory = 0;
         private int rollsRemaining = 3; //The number of rolls left in the user's turn
-        private int playerIndex; //the index of the player whose turn it is
         Stack<int> selectedDie = new Stack<int>();
         private DataTable gameMoves = new DataTable();
         
@@ -71,46 +70,68 @@ namespace Yahtzee
                 Response.Redirect("~/Yahtzee.aspx");
                 //TO DO: log the creation of the game
             }
+           
+            if (!IsPostBack)
+            {
+                setupGame();
+            }
+            lblPlayerOneName.Text = ViewState["playerOneName"].ToString();
+            lblPlayerTwoName.Text = ViewState["playerTwoName"].ToString();
+            if (ViewState["playerOneScore"] != null)
+            {
+                lblPlayerOneScore.Text = ViewState["playerOneScore"].ToString();
+            }
+            if (ViewState["playerTwoScore"] != null)
+            {
+                lblPlayerTwoScore.Text = ViewState["playerTwoScore"].ToString();
+            }
+            if (String.IsNullOrEmpty(lblPlayerTwoName.Text))
+            {
+                lblMessage.Text = "Waiting for Player 2 to join.";
+            }
+            else
+            {
+                lblMessage.Text = "It is " + ViewState["playersTurn"].ToString() + "'s turn";
 
+                //If it is the logged in player's turn, make the roll button control enabled.
+                if (ViewState["playersTurn"].ToString() == User.Identity.Name)
+                {
+                    btnRoll.Enabled = true;
+                    btnPlay.Enabled = true;
+                }
+                if (ViewState["rollsRemaining"] != null)
+                {
+                    rollsRemaining = Convert.ToInt16(ViewState["rollsRemaining"]);
+                }
+
+                if (ViewState["dice"] != null)
+                {
+                    dice = (int[])ViewState["dice"];
+                }
+            }
+
+            
+        }
+
+        private void setupGame()
+        {
             if (Session["ActiveGameID"] != null)
             {
                 getGame();
+                ViewState["playersTurn"] = playersTurn;
+                ViewState["playerOneName"] = playerOneName;
+                ViewState["playerTwoName"] = playerTwoName;
+                ViewState["playerOneScore"] = playerOneScore;
+                ViewState["playerTwoScore"] = playerTwoScore;
+
                 getMoves();
-                
-                lblPlayerOneName.Text = playerOneName;
-                lblPlayerTwoName.Text = playerTwoName;
-                if(!String.IsNullOrEmpty(playerOneScore))
-                {
-                    lblPlayerOneScore.Text = playerOneScore;
-                }
-                if (!String.IsNullOrEmpty(playerTwoScore))
-                {
-                    lblPlayerTwoScore.Text = playerTwoScore;
-                }
-                lblPlayersTurn.Text = playersTurn;
                 loadPoints();
+
             }
             else
             {
                 Response.Redirect("~/MainMenu.aspx");
             }
-
-            //If it is the logged in player's turn, make the roll button control enabled.
-            if (playersTurn == User.Identity.Name)
-            {
-                btnRoll.Enabled = true;
-                btnPlay.Enabled = true;
-            }
-            if (ViewState["rollsRemaining"] != null)
-            {
-                rollsRemaining = Convert.ToInt16(ViewState["rollsRemaining"]);
-            }
-
-            if(ViewState["dice"] != null)
-            {
-                dice = (int[])ViewState["dice"];
-            }
-            
         }
 
         private void Roll()
@@ -702,8 +723,8 @@ namespace Yahtzee
             com.Prepare();
             com.Parameters.Add(new SqlParameter("@PlayerOneName", User.Identity.Name));
             com.Parameters.Add(new SqlParameter("@PlayerTwoName", DBNull.Value));
-            com.Parameters.Add(new SqlParameter("@PlayerOneScore", DBNull.Value));
-            com.Parameters.Add(new SqlParameter("@PlayerTwoScore", DBNull.Value));
+            com.Parameters.Add(new SqlParameter("@PlayerOneScore", "0"));
+            com.Parameters.Add(new SqlParameter("@PlayerTwoScore", "0"));
             com.Parameters.Add(new SqlParameter("@Winner", DBNull.Value));
             com.Parameters.Add(new SqlParameter("@PlayersTurn", User.Identity.Name));
             gameId = Convert.ToInt32(com.ExecuteScalar().ToString());
@@ -772,15 +793,15 @@ namespace Yahtzee
 
                 int oneScore = Convert.ToInt32(lblPlayerOneScore.Text);
                 int twoScore = Convert.ToInt32(lblPlayerTwoScore.Text);
-                if (lblPlayersTurn.Text == playerOneName)
+                if (ViewState["playersTurn"].ToString() == lblPlayerOneName.Text)
                 {
                     oneScore = oneScore + points;
-                    nextPlayer = playerTwoName;
+                    nextPlayer = lblPlayerTwoName.Text;
                 }
                 else
                 {
                     twoScore = twoScore + points;
-                    nextPlayer = playerOneName;
+                    nextPlayer = lblPlayerOneName.Text;
                 }
 
                 
@@ -791,16 +812,14 @@ namespace Yahtzee
 
                 SqlCommand com = new SqlCommand(command, conn);
                 com.Prepare();
-                com.Parameters.Add(new SqlParameter("@GameID", gameId));
-                com.Parameters.Add(new SqlParameter("@UpdatedDate", DateTime.Today));
-                com.Parameters.Add(new SqlParameter("@NextPlayer", nextPlayer));
                 com.Parameters.Add(new SqlParameter("@PlayerOneScore", oneScore.ToString()));
                 com.Parameters.Add(new SqlParameter("@PlayerTwoScore", twoScore.ToString()));
-
-
+                com.Parameters.Add(new SqlParameter("@NextPlayer", nextPlayer));
+                com.Parameters.Add(new SqlParameter("@GameID", gameId));
+                
                 com.ExecuteNonQuery();
                 conn.Close();
-
+                ViewState["playersTurn"] = nextPlayer;
             }
             catch(Exception ex)
             {
@@ -940,65 +959,60 @@ namespace Yahtzee
 
         private void loadPoints()
         {
-            //string expression;
-            //expression = "PlayerName = " + lblPlayersTurn.Text;
-            //DataRow[] usersMoves;
-
-            //usersMoves = gameMoves.Select(expression);
-
-            foreach(DataRow row in gameMoves.Rows)
+            string playersTurn = ViewState["playersTurn"].ToString();
+            foreach (DataRow row in gameMoves.Rows)
             {
-                if (row["PlayerName"].ToString() == lblPlayersTurn.Text && row["category"].ToString() == "Chance")
+                if (row["PlayerName"].ToString() == playersTurn && row["category"].ToString() == "Chance")
                 {
                     rdoChance.Enabled = false;
                     lblChanceScore.Text = row["Points"].ToString();
                 }
-                if (row["PlayerName"].ToString() == lblPlayersTurn.Text && row["category"].ToString() == "Ones")
+                if (row["PlayerName"].ToString() == playersTurn && row["category"].ToString() == "Ones")
                 {
                     rdoOnes.Enabled = false;
                     lblOnesScore.Text = row["Points"].ToString();
                 }
-                if (row["PlayerName"].ToString() == lblPlayersTurn.Text && row["category"].ToString() == "Twos")
+                if (row["PlayerName"].ToString() == playersTurn && row["category"].ToString() == "Twos")
                 {
                     rdoTwos.Enabled = false;
                     lblTwosScore.Text = row["Points"].ToString();
                 }
-                if (row["PlayerName"].ToString() == lblPlayersTurn.Text && row["category"].ToString() == "Threes")
+                if (row["PlayerName"].ToString() == playersTurn && row["category"].ToString() == "Threes")
                 {
                     rdoThrees.Enabled = false;
                     lblThreesScore.Text = row["Points"].ToString();
                 }
-                if (row["PlayerName"].ToString() == lblPlayersTurn.Text && row["category"].ToString() == "Fours")
+                if (row["PlayerName"].ToString() == playersTurn && row["category"].ToString() == "Fours")
                 {
                     rdoFours.Enabled = false;
                     lblFoursScore.Text = row["Points"].ToString();
                 }
-                if (row["PlayerName"].ToString() == lblPlayersTurn.Text && row["category"].ToString() == "Fives")
+                if (row["PlayerName"].ToString() == playersTurn && row["category"].ToString() == "Fives")
                 {
                     rdoFives.Enabled = false;
                     lblFivesScore.Text = row["Points"].ToString();
                 }
-                if (row["PlayerName"].ToString() == lblPlayersTurn.Text && row["category"].ToString() == "Sixes")
+                if (row["PlayerName"].ToString() == playersTurn && row["category"].ToString() == "Sixes")
                 {
                     rdoSixes.Enabled = false;
                     lblSixesScore.Text = row["Points"].ToString();
                 }
-                if (row["PlayerName"].ToString() == lblPlayersTurn.Text && row["category"].ToString() == "Full House")
+                if (row["PlayerName"].ToString() == playersTurn && row["category"].ToString() == "Full House")
                 {
                     rdoFullHouse.Enabled = false;
                     lblFullHouseScore.Text = row["Points"].ToString();
                 }
-                if (row["PlayerName"].ToString() == lblPlayersTurn.Text && row["category"].ToString() == "Small Straight")
+                if (row["PlayerName"].ToString() == playersTurn && row["category"].ToString() == "Small Straight")
                 {
                     rdoSmallStraight.Enabled = false;
                     lblSmallStraightScore.Text = row["Points"].ToString();
                 }
-                if (row["PlayerName"].ToString() == lblPlayersTurn.Text && row["category"].ToString() == "Large Straight")
+                if (row["PlayerName"].ToString() == playersTurn && row["category"].ToString() == "Large Straight")
                 {
                     rdoLargeStraight.Enabled = false;
                     lblLargeStraightScore.Text = row["Points"].ToString();
                 }
-                if (row["PlayerName"].ToString() == lblPlayersTurn.Text && row["category"].ToString() == "Yahtzee")
+                if (row["PlayerName"].ToString() == playersTurn && row["category"].ToString() == "Yahtzee")
                 {
                     rdoYahtzee.Enabled = false;
                     lblYahtzeeScore.Text = row["Points"].ToString();

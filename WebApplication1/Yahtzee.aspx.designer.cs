@@ -31,13 +31,13 @@ namespace Yahtzee {
         protected global::System.Web.UI.WebControls.HyperLink Logout;
         
         /// <summary>
-        /// lblPlayersTurn control.
+        /// lblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPlayersTurn;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
         
         /// <summary>
         /// lblPlayerOneName control.

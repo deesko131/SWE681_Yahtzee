@@ -10,7 +10,7 @@
         <p>
 			<asp:HyperLink ID="lnkNewGame" runat="server" NavigateUrl="~/Yahtzee.aspx?game=New">Create New Game</asp:HyperLink>
 &nbsp;|
-			<asp:HyperLink ID="lnkJoinGame" runat="server" NavigateUrl="GamesList.aspx">Join Game</asp:HyperLink>
+			<asp:HyperLink ID="lnkJoinGame" runat="server" NavigateUrl="JoinGame.aspx">Join Game</asp:HyperLink>
 		&nbsp;|
             <asp:HyperLink ID="lnkStats" runat="server" NavigateUrl="Stats.aspx">Stats</asp:HyperLink>
             &nbsp;|
