@@ -16,10 +16,11 @@
     <h2><%: Title %></h2>
         <h2 class="text-left">
            <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
+           <asp:LinkButton runat="server" ID="btnRefresh" PostBackUrl="~/Yahtzee.aspx" Text="Refresh Page" />
         </h2>
         <h3>
-            <asp:Label ID="lblPlayerOneName" runat="server" Text="Player "></asp:Label>
-            Score: <asp:Label ID="lblPlayerOneScore" runat="server" Text="0" ></asp:Label> &nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="lblPlayerTwoName" runat="server" Text="Player "></asp:Label>
+            <asp:Label ID="lblPlayerOneName" runat="server" Text="Player"></asp:Label>
+            Score: <asp:Label ID="lblPlayerOneScore" runat="server" Text="0" ></asp:Label> &nbsp;&nbsp;&nbsp;&nbsp;<asp:Label ID="lblPlayerTwoName" runat="server" Text="Player"></asp:Label>
             Score: <asp:Label ID="lblPlayerTwoScore" runat="server" Text="0" ></asp:Label></h3>
     <h3>You Rolled:</h3>
 
