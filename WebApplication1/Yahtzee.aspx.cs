@@ -409,7 +409,7 @@ namespace Yahtzee
                     break;
                 case 10: //Large straight
                     score = 40;
-                    lblSmallStraightScore.Text = score.ToString();
+                    lblLargeStraightScore.Text = score.ToString();
                     break;
                 case 11: //Yahtzee
                     score = 50;
