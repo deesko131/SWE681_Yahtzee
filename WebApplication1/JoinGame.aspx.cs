@@ -24,9 +24,8 @@ namespace Yahtzee
                 lblUserName.Text = User.Identity.Name;
             }
 
-            checkForActiveGame();
-            //TODO: Get Active game ID and put into Session
-            //Alert the user when an active game is found in the database and redirect them to it instead of showing game list.
+            checkForActiveGame(); //Alert the user when an active game is found in the database and redirect them to it instead of showing game list.
+
         }
 
         private void checkForActiveGame()

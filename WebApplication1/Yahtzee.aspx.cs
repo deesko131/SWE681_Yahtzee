@@ -18,11 +18,6 @@ namespace Yahtzee
 
         private String[] PlayerNames = new string[2];
 
-        //These arrays hold the scores of the two players. 
-        //{ones, twos, threes, fours, fives, sixes, 3 of a kind, 4 of a kind, full house, sm. straight, lg. straight, yahtzee, chance, bonus}
-        //private int[,] Points = new int[2,14];
-        //private int[] PlayerOneScores = new int[14];
-        //private int[] PlayerTwoScores = new int[14];
         string playerOneName;
         string playerTwoName;
         string playerOneScore;
@@ -42,7 +37,6 @@ namespace Yahtzee
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
             if (!Request.IsSecureConnection)
             {
                 Response.Redirect(Request.Url.AbsoluteUri.Replace("http://", "https://"));
@@ -56,8 +50,6 @@ namespace Yahtzee
                 Welcome.Text = "Hello " + User.Identity.Name;
             }
 
-            
-
             if(Request.QueryString["game"] == "New")
             {
                 checkForActiveGame();
@@ -68,7 +60,6 @@ namespace Yahtzee
                 }
               
                 Response.Redirect("~/Yahtzee.aspx");
-                //TO DO: log the creation of the game
             }
            
             if (!IsPostBack)
@@ -96,8 +87,6 @@ namespace Yahtzee
             {
                 dice = (int[])ViewState["dice"];
             }
-
-
         }
 
         private void setupGame()
@@ -135,9 +124,7 @@ namespace Yahtzee
                         btnRoll.Enabled = false;
                         btnPlay.Enabled = false;
                     }
-
                 }
-
             }
             else
             {
@@ -424,7 +411,6 @@ namespace Yahtzee
                     break;
 
             }
-            //selectedPointScore = score;
         }
 
         protected void btnPlay_Click(object sender, EventArgs e)
@@ -445,9 +431,6 @@ namespace Yahtzee
             {
                 lblPlayerTwoScore.Text = ViewState["playerTwoScore"].ToString();
             }
-            //disableSelectionControl();
-
-            //TO DO: Log the play
         }
 
         protected void Logout_Click(object sender, EventArgs e)
@@ -828,8 +811,6 @@ namespace Yahtzee
                     nextPlayer = lblPlayerOneName.Text;
                 }
 
-                
-
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
                 conn.Open();
                 string command = "update Games set UpdatedDate = GETDATE(), PlayerOneScore = @PlayerOneScore, PlayerTwoScore = @PlayerTwoScore, PlayersTurn = @NextPlayer where GameID = @GameID";
@@ -843,9 +824,6 @@ namespace Yahtzee
                 
                 com.ExecuteNonQuery();
                 conn.Close();
-
-                
-                //ViewState["playersTurn"] = nextPlayer;
             }
             catch(Exception ex)
             {
@@ -1003,9 +981,6 @@ namespace Yahtzee
                     lblYahtzeeScore.Text = row["Points"].ToString();
                 }
             }
-
-            
-
         }
 
         private string getSelectedCategory()
@@ -1070,6 +1045,5 @@ namespace Yahtzee
 
             return category;
         }
-
     }
 }
