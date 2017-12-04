@@ -43,7 +43,11 @@ namespace Yahtzee
 
                 if (result == DialogResult.Yes)
                 {
-                    Session["ActiveGameID"] = activeGameId;
+                    if(activeGameId != 0)
+                    {
+                        Session["ActiveGameID"] = activeGameId;
+                    }
+                    
                     Response.Redirect("~/Yahtzee.aspx");
                 }
                 else if (result == DialogResult.No)
@@ -58,15 +62,42 @@ namespace Yahtzee
             int activeGameId;
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
             conn.Open();
-            string command = "select GameID from Games where (PlayerOneName = @PlayerName OR PlayerTwoName = @PlayerName) AND Winner IS NULL";
+            string command = "select ISNULL(GameID,0) from Games where (PlayerOneName = @PlayerName OR PlayerTwoName = @PlayerName) AND Winner IS NULL";
 
             SqlCommand com = new SqlCommand(command, conn);
             com.Prepare();
             com.Parameters.Add(new SqlParameter("@PlayerName", User.Identity.Name));
-            activeGameId = Convert.ToInt32(com.ExecuteScalar().ToString());
+            activeGameId = Convert.ToInt32(com.ExecuteScalar());
             conn.Close();
 
             return activeGameId;
+        }
+
+        protected void gvGames_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            var datakey = e.CommandArgument;
+            if (e.CommandName == "Join")
+            {
+                Session["ActiveGameID"] = datakey;
+                addPlayerTwoToGame();
+                Response.Redirect("~/Yahtzee.aspx");
+            }
+            
+        }
+
+        private void addPlayerTwoToGame()
+        {
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+            conn.Open();
+            string command = "update Games set UpdatedDate = GETDATE(), PlayerTwoName = @PlayerTwoName where GameID = @GameID";
+
+            SqlCommand com = new SqlCommand(command, conn);
+            com.Prepare();
+            com.Parameters.Add(new SqlParameter("@PlayerTwoName", User.Identity.Name));
+            com.Parameters.Add(new SqlParameter("@GameID", Convert.ToInt32(Session["ActiveGameID"])));
+
+            com.ExecuteNonQuery();
+            conn.Close();
         }
     }
 }

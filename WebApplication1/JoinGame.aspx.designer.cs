@@ -7,12 +7,11 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Yahtzee
-{
-
-    public partial class _JoinGame
-    {
-
+namespace Yahtzee {
+    
+    
+    public partial class _JoinGame {
+        
         /// <summary>
         /// lblUserName control.
         /// </summary>
@@ -21,41 +20,23 @@ namespace Yahtzee
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblUserName;
-
+        
         /// <summary>
-        /// lnkNewGame control.
+        /// gvGames control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkNewGame;
-
+        protected global::System.Web.UI.WebControls.GridView gvGames;
+        
         /// <summary>
-        /// lnkJoinGame control.
+        /// SqlDataSource1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkJoinGame;
-
-        /// <summary>
-        /// lnkStats control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkStats;
-
-        /// <summary>
-        /// lnkMoveHistory control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkMoveHistory;
+        protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
     }
 }

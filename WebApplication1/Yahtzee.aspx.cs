@@ -74,7 +74,9 @@ namespace Yahtzee
             if (!IsPostBack)
             {
                 setupGame();
+                
             }
+
             lblPlayerOneName.Text = ViewState["playerOneName"].ToString();
             lblPlayerTwoName.Text = ViewState["playerTwoName"].ToString();
             if (ViewState["playerOneScore"] != null)
@@ -85,32 +87,17 @@ namespace Yahtzee
             {
                 lblPlayerTwoScore.Text = ViewState["playerTwoScore"].ToString();
             }
-            if (String.IsNullOrEmpty(lblPlayerTwoName.Text))
+            if (ViewState["rollsRemaining"] != null)
             {
-                lblMessage.Text = "Waiting for Player 2 to join.";
-            }
-            else
-            {
-                lblMessage.Text = "It is " + ViewState["playersTurn"].ToString() + "'s turn";
-
-                //If it is the logged in player's turn, make the roll button control enabled.
-                if (ViewState["playersTurn"].ToString() == User.Identity.Name)
-                {
-                    btnRoll.Enabled = true;
-                    btnPlay.Enabled = true;
-                }
-                if (ViewState["rollsRemaining"] != null)
-                {
-                    rollsRemaining = Convert.ToInt16(ViewState["rollsRemaining"]);
-                }
-
-                if (ViewState["dice"] != null)
-                {
-                    dice = (int[])ViewState["dice"];
-                }
+                rollsRemaining = Convert.ToInt16(ViewState["rollsRemaining"]);
             }
 
-            
+            if (ViewState["dice"] != null)
+            {
+                dice = (int[])ViewState["dice"];
+            }
+
+
         }
 
         private void setupGame()
@@ -123,9 +110,33 @@ namespace Yahtzee
                 ViewState["playerTwoName"] = playerTwoName;
                 ViewState["playerOneScore"] = playerOneScore;
                 ViewState["playerTwoScore"] = playerTwoScore;
-
+                
                 getMoves();
+                clearRadios();
                 loadPoints();
+                updateLowerUpperBonus();
+                lblPlayerTwoName.Text = ViewState["playerTwoName"].ToString();
+                if (lblPlayerTwoName.Text == "Player")
+                {
+                    lblMessage.Text = "Waiting for Player 2 to join.";
+                }
+                else
+                {
+                    lblMessage.Text = "It is " + ViewState["playersTurn"].ToString() + "'s turn";
+
+                    //If it is the logged in player's turn, make the roll button control enabled.
+                    if (ViewState["playersTurn"].ToString() == User.Identity.Name)
+                    {
+                        btnRoll.Enabled = true;
+                        btnPlay.Enabled = true;
+                    }
+                    else
+                    {
+                        btnRoll.Enabled = false;
+                        btnPlay.Enabled = false;
+                    }
+
+                }
 
             }
             else
@@ -141,7 +152,7 @@ namespace Yahtzee
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    int dieRoll = randomNumber.Next(1, 6);
+                    int dieRoll = randomNumber.Next(1, 7);
                     dice[i] = dieRoll;
                 }
                 rollsRemaining--;
@@ -398,7 +409,7 @@ namespace Yahtzee
                     break;
                 case 10: //Large straight
                     score = 40;
-                    lblSmallStraightScore.Text = score.ToString();
+                    lblLargeStraightScore.Text = score.ToString();
                     break;
                 case 11: //Yahtzee
                     score = 50;
@@ -420,7 +431,20 @@ namespace Yahtzee
         {
             //Points[playerIndex, selectedPointCategory] = selectedPointScore;
             saveMove(getSelectedCategory(), selectedPointScore);
-            updateLowerUpperBonus();
+            
+            setupGame();
+            
+            checkForWinner();
+            lblPlayerOneName.Text = ViewState["playerOneName"].ToString();
+            lblPlayerTwoName.Text = ViewState["playerTwoName"].ToString();
+            if (ViewState["playerOneScore"] != null)
+            {
+                lblPlayerOneScore.Text = ViewState["playerOneScore"].ToString();
+            }
+            if (ViewState["playerTwoScore"] != null)
+            {
+                lblPlayerTwoScore.Text = ViewState["playerTwoScore"].ToString();
+            }
             //disableSelectionControl();
 
             //TO DO: Log the play
@@ -819,7 +843,9 @@ namespace Yahtzee
                 
                 com.ExecuteNonQuery();
                 conn.Close();
-                ViewState["playersTurn"] = nextPlayer;
+
+                
+                //ViewState["playersTurn"] = nextPlayer;
             }
             catch(Exception ex)
             {
@@ -827,61 +853,20 @@ namespace Yahtzee
             }
         }
 
-        //private void disableSelectionControl()
-        //{
-        //    if (rdoChance.Checked)
-        //    {
-        //        rdoChance.Enabled = false;
-        //    }
-        //    else if (rdoOnes.Checked)
-        //    {
-        //        rdoOnes.Enabled = false;
-        //    }
-        //    else if (rdoTwos.Checked)
-        //    {
-        //        rdoTwos.Enabled = false;
-        //    }
-        //    else if (rdoThrees.Checked)
-        //    {
-        //        category = "Threes";
-        //        selectedPointScore = Convert.ToInt32(lblThreesScore.Text);
-        //    }
-        //    else if (rdoFours.Checked)
-        //    {
-        //        category = "Fours";
-        //        selectedPointScore = Convert.ToInt32(lblFoursScore.Text);
-        //    }
-        //    else if (rdoFives.Checked)
-        //    {
-        //        category = "Fives";
-        //        selectedPointScore = Convert.ToInt32(lblFivesScore.Text);
-        //    }
-        //    else if (rdoSixes.Checked)
-        //    {
-        //        category = "Sixes";
-        //        selectedPointScore = Convert.ToInt32(lblSixesScore.Text);
-        //    }
-        //    else if (rdoFullHouse.Checked)
-        //    {
-        //        category = "Full House";
-        //        selectedPointScore = Convert.ToInt32(lblFullHouseScore.Text);
-        //    }
-        //    else if (rdoSmallStraight.Checked)
-        //    {
-        //        category = "Small Straight";
-        //        selectedPointScore = Convert.ToInt32(lblSmallStraightScore.Text);
-        //    }
-        //    else if (rdoLargeStraight.Checked)
-        //    {
-        //        category = "Large Straight";
-        //        selectedPointScore = Convert.ToInt32(lblLargeStraightScore.Text);
-        //    }
-        //    else if (rdoYahtzee.Checked)
-        //    {
-        //        category = "Yahtzee";
-        //        selectedPointScore = Convert.ToInt32(lblYahtzeeScore.Text);
-        //    }
-        //}
+        private void clearRadios()
+        {
+            rdoChance.Checked = false;
+            rdoOnes.Checked = false;
+            rdoTwos.Checked = false;
+            rdoThrees.Checked = false;
+            rdoFours.Checked = false;
+            rdoFives.Checked = false;
+            rdoSixes.Checked = false;
+            rdoFullHouse.Checked = false;
+            rdoSmallStraight.Checked = false;
+            rdoLargeStraight.Checked = false;
+            rdoYahtzee.Checked = false;
+        }
 
         private void getMoves()
         {
@@ -939,7 +924,7 @@ namespace Yahtzee
             {
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
                 conn.Open();
-                string command = "update Games set PlayersTurn = @PlayersTurn Winner = @Winner where GameID = @GameID";
+                string command = "update Games set PlayersTurn = @PlayersTurn, Winner = @Winner where GameID = @GameID";
 
                 SqlCommand com = new SqlCommand(command, conn);
                 com.Prepare();

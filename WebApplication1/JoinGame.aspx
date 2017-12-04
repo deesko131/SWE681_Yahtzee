@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Main Menu" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="JoinGame.aspx.cs" Inherits="Yahtzee._JoinGame" %>
+﻿<%@ Page Title="Join Game" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="JoinGame.aspx.cs" Inherits="Yahtzee._JoinGame" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
 
@@ -8,13 +8,19 @@
             !</h1>
         <p class="lead">&nbsp;</p>
         <p>
-			<asp:HyperLink ID="lnkNewGame" runat="server" NavigateUrl="~/Yahtzee.aspx?game=New">Create New Game</asp:HyperLink>
-&nbsp;|
-			<asp:HyperLink ID="lnkJoinGame" runat="server" NavigateUrl="GamesList.aspx">Join Game</asp:HyperLink>
-		&nbsp;|
-            <asp:HyperLink ID="lnkStats" runat="server" NavigateUrl="Stats.aspx">Stats</asp:HyperLink>
-            &nbsp;|
-            <asp:HyperLink ID="lnkMoveHistory" runat="server" NavigateUrl="MoveHistory.aspx">Game History</asp:HyperLink>
+            <asp:GridView ID="gvGames" runat="server" AutoGenerateColumns="False" Caption="Games waiting for another player" CaptionAlign="Top" DataKeyNames="GameID" DataSourceID="SqlDataSource1" EmptyDataText="No games found." OnRowCommand="gvGames_RowCommand">
+                <Columns>
+                    <asp:BoundField DataField="PlayerOneName" HeaderText="Player Name" SortExpression="PlayerOneName" />
+                    <asp:BoundField DataField="GameID" HeaderText="GameID" InsertVisible="False" ReadOnly="True" SortExpression="GameID" Visible="False" />
+                    <asp:BoundField DataField="CreatedDate" HeaderText="Date Created" SortExpression="CreatedDate" />
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Button runat="server" Text="Join" CommandName="Join" CommandArgument='<%# Eval("GameID") %>' />
+                        </ItemTemplate>
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
+		    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>" SelectCommand="SELECT [PlayerOneName], [GameID], [CreatedDate] FROM [Games] WHERE ([PlayerTwoName] IS NULL)"></asp:SqlDataSource>
 		</p>
         <p>
 			&nbsp;</p>
