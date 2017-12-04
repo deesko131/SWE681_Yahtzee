@@ -56,7 +56,7 @@
 	</style>
 </head>
 <body style="height: 160px; width: 747px">
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" autocomplete="off">
 		<table class="auto-style1">
 			<tr>
 				<td class="auto-style4">Player Name</td>
@@ -68,7 +68,7 @@
 				    <br />
                     <asp:Label ID="Label1" runat="server" CssClass="auto-style11" Text="Label" Visible="False"></asp:Label>
 				    <br />
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="TextBoxUN" CssClass="auto-style11" ErrorMessage="Name must conatin minimum 4 upper case/lower case letters" ValidationExpression="[a-zA-Z'.\s]{4,40}"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="TextBoxUN" CssClass="auto-style11" ErrorMessage="Name must contain at least four characters." ValidationExpression="[a-z0-9_-]{4,40}"></asp:RegularExpressionValidator>
 				</td>
 			</tr>
 			<tr>

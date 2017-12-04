@@ -15,6 +15,8 @@
             <asp:HyperLink ID="lnkStats" runat="server" NavigateUrl="Stats.aspx">Stats</asp:HyperLink>
             &nbsp;|
             <asp:HyperLink ID="lnkMoveHistory" runat="server" NavigateUrl="MoveHistory.aspx">Game History</asp:HyperLink>
+		&nbsp;|
+            <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Register/logout.aspx">Logout</asp:HyperLink>
 		</p>
         <p>
 			&nbsp;</p>

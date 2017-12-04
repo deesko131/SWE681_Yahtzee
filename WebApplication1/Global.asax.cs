@@ -24,12 +24,12 @@ namespace Yahtzee
             //log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
 
         }
-        //added
-        /*protected void Application_Error(object sender, EventArgs e)
+        
+        protected void Application_Error(object sender, EventArgs e)
         { Exception ex = Server.GetLastError();
-            log.Info("++++++++++++++++++++++++++++++");
-            log.Error("Exception - \n " + ex);
-            log.Info("++++++++++++++++++++++++++++++");        }
-            */
+            Server.ClearError();
+            Response.Redirect("ErrorPage.aspx");
+                 }
+            
     }
 }

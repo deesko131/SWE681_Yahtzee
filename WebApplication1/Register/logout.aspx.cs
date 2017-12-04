@@ -33,13 +33,13 @@ namespace WebApplication1
                     FormsAuthentication.SignOut();
                     Response.Cache.SetCacheability(HttpCacheability.NoCache);
                     Response.Buffer = true;
-                    //Response.ExpiresAbsolute = DateTime.Now.AddDays(-1d);
+                    Response.ExpiresAbsolute = DateTime.Now.AddDays(-1d);
                     Response.Expires = -1;
                     Response.CacheControl = "no-cache";
                 }
                 catch (Exception ex)
                 {
-                    Response.Write(ex.Message);
+                   throw ex;
                 }
             //}
             //else

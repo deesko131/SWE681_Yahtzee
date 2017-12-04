@@ -37,7 +37,7 @@
 	</style>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server" autocomplete="off">
         <div class="auto-style1">
         	<strong><span class="auto-style2">Login Page</span></strong>
 			<br />

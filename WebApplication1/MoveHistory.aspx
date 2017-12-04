@@ -22,6 +22,10 @@
             font-size: medium;
             color: #0066CC;
         }
+        .auto-style6 {
+            font-size: medium;
+            margin-top: 0px;
+        }
     </style>
 </head>
 <body>
@@ -45,7 +49,8 @@
                     <tr>
                         <td>&nbsp;</td>
                         <td class="auto-style4">
-            <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" DataKeyNames="GameID" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" AutoGenerateSelectButton="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3">
+            &nbsp;&nbsp;
+            <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" DataKeyNames="GameID" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" AutoGenerateSelectButton="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" CssClass="auto-style6">
             <Columns>
                 <asp:BoundField HeaderText="Game ID" DataField="GameID" />
                 <asp:BoundField HeaderText="First Player" DataField="PlayerOneName" />

@@ -138,6 +138,9 @@
     </Content>
     <Content Include="JoinGame.aspx" />
     <Content Include="MainMenu.aspx" />
+    <Content Include="MoveHistory.aspx" />
+    <Content Include="Register\ErrorPage.aspx" />
+    <Content Include="stats.aspx" />
     <Content Include="Yahtzee.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -216,6 +219,27 @@
     </Compile>
     <Compile Include="MainMenu.aspx.designer.cs">
       <DependentUpon>MainMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MoveHistory.aspx.cs">
+      <DependentUpon>MoveHistory.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MoveHistory.aspx.designer.cs">
+      <DependentUpon>MoveHistory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Register\ErrorPage.aspx.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register\ErrorPage.aspx.designer.cs">
+      <DependentUpon>ErrorPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="stats.aspx.cs">
+      <DependentUpon>stats.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="stats.aspx.designer.cs">
+      <DependentUpon>stats.aspx</DependentUpon>
     </Compile>
     <Compile Include="Yahtzee.aspx.cs">
       <DependentUpon>Yahtzee.aspx</DependentUpon>
