@@ -80,8 +80,8 @@ namespace WebApplication1
                 catch (Exception ex)
 
                 {
-                    throw ex;
-
+                    //throw ex;
+                    log.Error(ex.ToString());
                 }
             }
             else Response.Write("Login Failed");

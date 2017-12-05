@@ -7,15 +7,17 @@ using System.Web.UI.WebControls;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
 using System.Configuration;
-
+using System.IO;
+using log4net;
 namespace WebApplication1
 {
     public partial class Registeration : System.Web.UI.Page
     {
         string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-
+        private static readonly ILog log = LogManager.GetLogger("test");
         protected void Page_Load(object sender, EventArgs e)
         {
+            log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
         }
 
 
@@ -64,8 +66,8 @@ namespace WebApplication1
                         Clear();
                         Response.Redirect("Default.aspx");
                     }
-                    catch (Exception)
-                    { Response.Write("Error"); }
+                    catch (Exception ex)
+                    { log.Error(ex.ToString()); }
                 }
 
 

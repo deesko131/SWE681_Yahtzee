@@ -10,12 +10,14 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Windows.Forms;
 using System.Data;
+using System.IO;
+using log4net;
 
 namespace Yahtzee
 {
     public partial class YahtzeeGame : Page
     {
-
+        private static readonly ILog log = LogManager.GetLogger("test");
         private String[] PlayerNames = new string[2];
 
         string playerOneName;
@@ -696,46 +698,69 @@ namespace Yahtzee
 
         private void getGame()
         {
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-            conn.Open();
-            string command = "select * from Games where GameID = @GameID";
-
-            SqlCommand com = new SqlCommand(command, conn);
-            com.Prepare();
-            com.Parameters.Add(new SqlParameter("@GameID", Session["ActiveGameID"]));
-            SqlDataReader reader = com.ExecuteReader();
-            if(reader.HasRows)
+            try
             {
-                while (reader.Read())
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                conn.Open();
+                string command = "select * from Games where GameID = @GameID";
+
+                SqlCommand com = new SqlCommand(command, conn);
+                com.Prepare();
+                com.Parameters.Add(new SqlParameter("@GameID", Session["ActiveGameID"]));
+                SqlDataReader reader = com.ExecuteReader();
+                if (reader.HasRows)
                 {
-                    playerOneName = reader["PlayerOneName"].ToString();
-                    playerTwoName = reader["PlayerTwoName"].ToString();
-                    playerOneScore = reader["PlayerOneScore"].ToString();
-                    playerTwoScore = reader["PlayerTwoScore"].ToString();
-                    winner = reader["Winner"].ToString();
-                    playersTurn = reader["PlayersTurn"].ToString();
+                    while (reader.Read())
+                    {
+                        playerOneName = reader["PlayerOneName"].ToString();
+                        playerTwoName = reader["PlayerTwoName"].ToString();
+                        playerOneScore = reader["PlayerOneScore"].ToString();
+                        playerTwoScore = reader["PlayerTwoScore"].ToString();
+                        winner = reader["Winner"].ToString();
+                        playersTurn = reader["PlayersTurn"].ToString();
+                    }
                 }
+                conn.Close();
             }
-            conn.Close();
+            catch (SqlException ex)
+            {
+                log.InfoFormat("SQL ERROR: User- {0} Error- {1}", User.Identity.Name, ex.ToString());
+            }
+            catch(Exception ex)
+            {
+                log.InfoFormat("APP ERROR: User- {0} Error- {1}", User.Identity.Name, ex.ToString());
+            }
         }
 
         private int createGameRecord()
         {
             int gameId = 0;
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-            conn.Open();
-            string command = "insert into Games (PlayerOneName,PlayerTwoName, PlayerOneScore,PlayerTwoScore, Winner, PlayersTurn) values(@PlayerOneName, @PlayerTwoName, @PlayerOneScore,@PlayerTwoScore, @Winner, @PlayersTurn); SELECT SCOPE_IDENTITY()";
+            try
+            {
+                
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                conn.Open();
+                string command = "insert into Games (PlayerOneName,PlayerTwoName, PlayerOneScore,PlayerTwoScore, Winner, PlayersTurn, CreatedBy, UpdatedBy) values(@PlayerOneName, @PlayerTwoName, @PlayerOneScore,@PlayerTwoScore, @Winner, @PlayersTurn, @PlayerOneName,@PlayerOneName); SELECT SCOPE_IDENTITY()";
 
-            SqlCommand com = new SqlCommand(command, conn);
-            com.Prepare();
-            com.Parameters.Add(new SqlParameter("@PlayerOneName", User.Identity.Name));
-            com.Parameters.Add(new SqlParameter("@PlayerTwoName", DBNull.Value));
-            com.Parameters.Add(new SqlParameter("@PlayerOneScore", "0"));
-            com.Parameters.Add(new SqlParameter("@PlayerTwoScore", "0"));
-            com.Parameters.Add(new SqlParameter("@Winner", DBNull.Value));
-            com.Parameters.Add(new SqlParameter("@PlayersTurn", User.Identity.Name));
-            gameId = Convert.ToInt32(com.ExecuteScalar().ToString());
-            conn.Close();
+                SqlCommand com = new SqlCommand(command, conn);
+                com.Prepare();
+                com.Parameters.Add(new SqlParameter("@PlayerOneName", User.Identity.Name));
+                com.Parameters.Add(new SqlParameter("@PlayerTwoName", DBNull.Value));
+                com.Parameters.Add(new SqlParameter("@PlayerOneScore", "0"));
+                com.Parameters.Add(new SqlParameter("@PlayerTwoScore", "0"));
+                com.Parameters.Add(new SqlParameter("@Winner", DBNull.Value));
+                com.Parameters.Add(new SqlParameter("@PlayersTurn", User.Identity.Name));
+                gameId = Convert.ToInt32(com.ExecuteScalar().ToString());
+                conn.Close();
+            }
+            catch (SqlException ex)
+            {
+                log.InfoFormat("SQL ERROR: User- {0} Error- {1}", User.Identity.Name, ex.ToString());
+            }
+            catch (Exception ex)
+            {
+                log.InfoFormat("APP ERROR: User- {0} Error- {1}", User.Identity.Name, ex.ToString());
+            }
 
             return gameId;
         }
@@ -785,11 +810,15 @@ namespace Yahtzee
                 updateGamesRecord(gameId, points);
 
             }
-            catch(Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show(ex.ToString());
+                log.InfoFormat("SQL ERROR: User- {0} Error- {1}", User.Identity.Name, ex.ToString());
             }
-            
+            catch (Exception ex)
+            {
+                log.InfoFormat("APP ERROR: User- {0} Error- {1}", User.Identity.Name, ex.ToString());
+            }
+
         }
 
         private void updateGamesRecord(int gameId, int points)
@@ -797,37 +826,44 @@ namespace Yahtzee
             try
             {
                 string nextPlayer;
-
+                string updatedBy;
                 int oneScore = Convert.ToInt32(lblPlayerOneScore.Text);
                 int twoScore = Convert.ToInt32(lblPlayerTwoScore.Text);
                 if (ViewState["playersTurn"].ToString() == lblPlayerOneName.Text)
                 {
                     oneScore = oneScore + points;
+                    updatedBy = lblPlayerOneName.Text;
                     nextPlayer = lblPlayerTwoName.Text;
                 }
                 else
                 {
                     twoScore = twoScore + points;
+                    updatedBy = lblPlayerTwoName.Text;
                     nextPlayer = lblPlayerOneName.Text;
                 }
 
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
                 conn.Open();
-                string command = "update Games set UpdatedDate = GETDATE(), PlayerOneScore = @PlayerOneScore, PlayerTwoScore = @PlayerTwoScore, PlayersTurn = @NextPlayer where GameID = @GameID";
+                string command = "update Games set UpdatedDate = GETDATE(), UpdatedBy = @UpdatedBy, PlayerOneScore = @PlayerOneScore, PlayerTwoScore = @PlayerTwoScore, PlayersTurn = @NextPlayer where GameID = @GameID";
 
                 SqlCommand com = new SqlCommand(command, conn);
                 com.Prepare();
                 com.Parameters.Add(new SqlParameter("@PlayerOneScore", oneScore.ToString()));
                 com.Parameters.Add(new SqlParameter("@PlayerTwoScore", twoScore.ToString()));
+                com.Parameters.Add(new SqlParameter("@UpdatedBy", updatedBy));
                 com.Parameters.Add(new SqlParameter("@NextPlayer", nextPlayer));
                 com.Parameters.Add(new SqlParameter("@GameID", gameId));
                 
                 com.ExecuteNonQuery();
                 conn.Close();
             }
-            catch(Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show(ex.ToString());
+                log.InfoFormat("SQL ERROR: User- {0} Error- {1}", User.Identity.Name, ex.ToString());
+            }
+            catch (Exception ex)
+            {
+                log.InfoFormat("APP ERROR: User- {0} Error- {1}", User.Identity.Name, ex.ToString());
             }
         }
 
@@ -863,11 +899,15 @@ namespace Yahtzee
                 conn.Close();
                 da.Dispose();
             }
-            catch(Exception ex)
+            catch (SqlException ex)
             {
-                MessageBox.Show(ex.ToString());
+                log.InfoFormat("SQL ERROR: User- {0} Error- {1}", User.Identity.Name, ex.ToString());
             }
-            
+            catch (Exception ex)
+            {
+                log.InfoFormat("APP ERROR: User- {0} Error- {1}", User.Identity.Name, ex.ToString());
+            }
+
         }
 
         private void checkForWinner()
@@ -914,9 +954,13 @@ namespace Yahtzee
                 conn.Close();
 
             }
+            catch (SqlException ex)
+            {
+                log.InfoFormat("SQL ERROR: User- {0} Error- {1}", User.Identity.Name, ex.ToString());
+            }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                log.InfoFormat("APP ERROR: User- {0} Error- {1}", User.Identity.Name, ex.ToString());
             }
         }
 

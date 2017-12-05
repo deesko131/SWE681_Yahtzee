@@ -58,6 +58,12 @@
                 <asp:BoundField HeaderText="Start Date" DataField="CreatedDate" />
                 <asp:BoundField HeaderText="End Date" DataField="UpdatedDate" />
                 <asp:BoundField HeaderText="Winner" DataField="Winner" />
+                <asp:TemplateField HeaderText="Forfeit">
+                    <ItemTemplate>
+                           <asp:Label ID="lblTest" runat="server" Text='<%# DataBinder.Eval(Container.DataItem,"Forfeit").ToString() == "1"? "YES": "NO"%>'> </asp:Label>
+                    </ItemTemplate>
+
+                </asp:TemplateField>
             </Columns>
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />

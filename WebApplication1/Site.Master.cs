@@ -95,7 +95,7 @@ namespace Yahtzee
                 (Context.User.Identity.Name ?? String.Empty))
                 {
                     throw new InvalidOperationException("Validation of Anti - XSRF token failed.");
-            }
+                }
             }
         }
     }

@@ -70,7 +70,7 @@ namespace WebApplication1
 
             {
                 Response.Write("Login Failed" + ex.ToString());
-                log1.Error("Error in openning connection");
+                log1.Error("Error in openning connection" + ex.ToString());
             }
         }
     }
