@@ -112,7 +112,7 @@ namespace Yahtzee
             {
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
                 conn.Open();
-                string command = "select CASE WHEN DATEDIFF(minute,Games.UpdatedDate,GETDATE()) > 1 THEN -1 ELSE Games.GameID END from Games where (PlayerOneName = @PlayerName OR PlayerTwoName = @PlayerName) AND Winner IS NULL";
+                string command = "select CASE WHEN DATEDIFF(minute,Games.UpdatedDate,GETDATE()) > 10 THEN -1 ELSE Games.GameID END from Games where (PlayerOneName = @PlayerName OR PlayerTwoName = @PlayerName) AND Winner IS NULL";
 
                 SqlCommand com = new SqlCommand(command, conn);
                 com.Prepare();

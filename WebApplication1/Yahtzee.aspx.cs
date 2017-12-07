@@ -786,6 +786,7 @@ namespace Yahtzee
             }
         }
 
+        //Commits the user's move to the Moves database table
         private void saveMove(string category, int points)
         {
             try
@@ -821,6 +822,7 @@ namespace Yahtzee
 
         }
 
+        //Updates the game record with latest total scores and sets the next player's turn
         private void updateGamesRecord(int gameId, int points)
         {
             try
@@ -910,6 +912,7 @@ namespace Yahtzee
 
         }
 
+        //Checks if all 26 moves have been played, calculates the winner and saves the winner's name to the Games table.
         private void checkForWinner()
         {
             string winner;
