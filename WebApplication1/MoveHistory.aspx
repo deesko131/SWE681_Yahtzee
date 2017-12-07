@@ -52,7 +52,6 @@
             &nbsp;&nbsp;
             <asp:GridView ID="GridView1" runat="server" HorizontalAlign="Center" DataKeyNames="GameID" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" AutoGenerateSelectButton="True" BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" CssClass="auto-style6">
             <Columns>
-                <asp:BoundField HeaderText="Game ID" DataField="GameID" />
                 <asp:BoundField HeaderText="First Player" DataField="PlayerOneName" />
                 <asp:BoundField HeaderText="Second Player" DataField="PlayerTwoName" />
                 <asp:BoundField HeaderText="Start Date" DataField="CreatedDate" />

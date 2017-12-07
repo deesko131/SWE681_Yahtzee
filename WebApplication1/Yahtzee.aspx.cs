@@ -107,7 +107,7 @@ namespace Yahtzee
                 loadPoints();
                 updateLowerUpperBonus();
                 lblPlayerTwoName.Text = ViewState["playerTwoName"].ToString();
-                if (lblPlayerTwoName.Text == "Player")
+                if (lblPlayerTwoName.Text == "")
                 {
                     lblMessage.Text = "Waiting for Player 2 to join.";
                 }

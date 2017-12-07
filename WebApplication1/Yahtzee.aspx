@@ -14,7 +14,7 @@
     </table>
     
     <h2><%: Title %></h2>
-        <h2 class="text-left">
+        <h2>
            <asp:Label ID="lblMessage" runat="server" Text=""></asp:Label>
            <asp:LinkButton runat="server" ID="btnRefresh" PostBackUrl="~/Yahtzee.aspx" Text="Refresh Page" />
         </h2>

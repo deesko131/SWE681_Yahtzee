@@ -10,6 +10,8 @@
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
+        <%: Styles.Render("~/Content/bootstrap.css") %>
+        <%: Styles.Render("~/Content/Site.css") %>
     </asp:PlaceHolder>
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
@@ -24,7 +26,6 @@
                 <%--Framework Scripts--%>
                 <asp:ScriptReference Name="jquery" />
                 <asp:ScriptReference Name="bootstrap" />
-
                 <%--Site Scripts--%>
             </Scripts>
         </asp:ScriptManager>
